@@ -1,0 +1,34 @@
+{
+  "name": "slack-github-issue-creator",
+  "version": "1.0.0",
+  "description": "Wouldn't it be cool to automate the process of creating Github issues directly from Slack messages?",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filipgolonka/slack-github-issue-creator.git"
+  },
+  "keywords": [
+    "slack",
+    "github",
+    "create",
+    "issue"
+  ],
+  "author": "Filip Golonka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filipgolonka/slack-github-issue-creator/issues"
+  },
+  "homepage": "https://github.com/filipgolonka/slack-github-issue-creator#readme",
+  "dependencies": {
+    "@octokit/graphql": "^4.5.7",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "got": "^11.8.0"
+  }
+}
