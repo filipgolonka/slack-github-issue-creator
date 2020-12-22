@@ -1,9 +1,13 @@
-module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp, username }) => {
+module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp, username, reporter }) => {
     const title = `Issue created from Slack message on #${channelName}`;
     const link = `https://${slackDomain}.slack.com/archives/${channelId}/p${messageTimestamp.replace('.', '')}`;
     let message = `[Link to Slack discussion](${link})\n\n${text}`;
     if (username) {
-        message = `${message}\n\nReported by @${username}`;
+        message = `${message}\n\nAuthored by @${username.replace(/\./gi, '-')}`;
+    }
+
+    if (reporter && reporter !== username) {
+        message = `${message}\n\nReported by @${reporter.replace(/\./gi, '-')}`;
     }
 
     return {
