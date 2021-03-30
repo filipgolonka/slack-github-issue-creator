@@ -34,7 +34,7 @@ const createServer = (config) => {
             const {type} = payloadParsed;
 
             if (type === 'message_action') {
-                await createModalAction(payloadParsed, config.slackApiToken);
+                await createModalAction(payloadParsed, config.slackApiToken, config.channelMap);
             } else if (type === 'view_submission') {
                 await createGithubIssue(githubClient, payloadParsed);
             } else {

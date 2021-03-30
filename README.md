@@ -51,6 +51,7 @@ const config = {
     githubBaseUrl: 'https://api.github.com',
     slackApiToken: process.env.SLACK_API_TOKEN,
     slackSigningSecret: process.env.SLACK_SIGNING_SECRET,
+    channelMap: {},
 };
 
 app.use(createServer(config));
@@ -63,6 +64,31 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 * SLACK_SIGNING_SECRET - the value can be found in "Basic information" screen in your app, it is described also a bit above :) 
 
 optionally you might want to change "githubBaseUrl", if your company uses Github Enterprise. The url then should be (most probably) `https://YOUR_GITHUB_URL/api`
+
+### Channel map
+
+It is possible to pass `channelMap` object in config. 
+Let's assume that you have `#internal-dev-team` Slack channel and you use this addon very often there. You do not want to search for repository every team, when you click "Create github issue". So you can deliver predefined map in the config object to map this channel to specific repo.
+
+Example:
+```
+const config = {
+    // ...
+    channelMap: {
+        'internal-dev-team': {
+            name: 'my-github-org/my-repo',
+            value: 'MDEwOlJlcG9zaXRvcnkzMTAwMDgzNDU=',
+        },
+    },
+};
+```
+
+how to get this magic hash for your repo?
+
+* open your repo in the browser and then open source code
+* find `<meta name="hovercard-subject-tag">` html attribute
+* it might look like this: `<meta name="hovercard-subject-tag" content="repository:310008345" data-pjax-transient="">`
+* calculate base64 string for the value `010:RepositoryREPO_ID` - where REPO_ID is an integer that is a part of `content` attribute of html tag. In my case - `010:Repository310008345`. And the base64 string is `MDEwOlJlcG9zaXRvcnkzMTAwMDgzNDU=`
 
 ## Testing
 

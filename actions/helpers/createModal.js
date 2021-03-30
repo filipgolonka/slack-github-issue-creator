@@ -1,4 +1,4 @@
-module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp, username, reporter }) => {
+module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp, username, reporter }, predefinedChannel) => {
     const title = `Issue created from Slack message on #${channelName}`;
     const link = `https://${slackDomain}.slack.com/archives/${channelId}/p${messageTimestamp.replace('.', '')}`;
     let message = `[Link to Slack discussion](${link})\n\n${text}`;
@@ -8,6 +8,35 @@ module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp,
 
     if (reporter && reporter !== username) {
         message = `${message}\n\nReported by @${reporter.replace(/\./gi, '-')}`;
+    }
+
+    const repositoryField = {
+        type: 'input',
+        block_id: 'repository',
+        element: {
+            type: 'external_select',
+            action_id: 'repository',
+            placeholder: {
+                type: 'plain_text',
+                text: 'Select repository',
+            },
+            min_query_length: 3,
+        },
+        label: {
+            type: 'plain_text',
+            text: 'Repository',
+            emoji: true
+        },
+    };
+
+    if (predefinedChannel) {
+        repositoryField.element.initial_option = {
+            text: {
+                type: 'plain_text',
+                text: predefinedChannel.name,
+            },
+            value: predefinedChannel.value,
+        };
     }
 
     return {
@@ -21,24 +50,7 @@ module.exports = ({ channelName, text, slackDomain, channelId, messageTimestamp,
         },
         callback_id: 'new-issue-modal',
         blocks: [
-            {
-                type: 'input',
-                block_id: 'repository',
-                element: {
-                    type: 'external_select',
-                    action_id: 'repository',
-                    placeholder: {
-                        type: 'plain_text',
-                        text: 'Select repository',
-                    },
-                    min_query_length: 3,
-                },
-                label: {
-                    type: 'plain_text',
-                    text: 'Repository',
-                    emoji: true
-                },
-            },
+            repositoryField,
             {
                 type: 'input',
                 block_id: 'title',

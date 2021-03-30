@@ -2,7 +2,7 @@ const got = require('got');
 const getUsername = require('./helpers/getUsername');
 const createModal = require('./helpers/createModal');
 
-const createModalAction = async (payload, slackApiToken) => {
+const createModalAction = async (payload, slackApiToken, channelMap = {}) => {
     const {
         trigger_id,
         channel: {name: channelName, id: channelId},
@@ -10,6 +10,8 @@ const createModalAction = async (payload, slackApiToken) => {
         message: {text, ts: messageTimestamp, user: userId},
         user: { username: reporter },
     } = payload;
+
+    const predefinedChannel = channelMap[channelName];
 
     const username = await getUsername(userId, slackApiToken);
 
@@ -19,7 +21,7 @@ const createModalAction = async (payload, slackApiToken) => {
         },
         json: {
             trigger_id,
-            view: createModal({ channelName, text, channelId, slackDomain, messageTimestamp, username, reporter }),
+            view: createModal({ channelName, text, channelId, slackDomain, messageTimestamp, username, reporter }, predefinedChannel),
         },
     });
 };
