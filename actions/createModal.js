@@ -11,7 +11,7 @@ const createModalAction = async (payload, slackApiToken, channelMap = {}) => {
         user: { username: reporter },
     } = payload;
 
-    const predefinedChannel = channelMap[channelName];
+    const predefinedChannel = channelMap[channelId];
 
     const username = await getUsername(userId, slackApiToken);
 

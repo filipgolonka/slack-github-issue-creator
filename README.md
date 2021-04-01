@@ -75,13 +75,17 @@ Example:
 const config = {
     // ...
     channelMap: {
-        'internal-dev-team': {
+        CHANNEL_ID: {
             name: 'my-github-org/my-repo',
             value: 'MDEwOlJlcG9zaXRvcnkzMTAwMDgzNDU=',
         },
     },
 };
 ```
+CHANNEL_ID can be found in the channel url. Open Slack app in your browser, navigate to your channel and use the id from url. Example:
+
+`https://app.slack.com/client/T018YKBP4EL/C01T7PLL13N` -> `C01T7PLL13N` is the channel id
+
 
 how to get this magic hash for your repo?
 
