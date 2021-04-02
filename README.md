@@ -35,6 +35,25 @@ PS! Supports Github Enterprise as well :)
 * click "Install App to Workspace". In the new screen click "Allow". 
 * Slack will display "Bot User OAuth Access Token". Store it safely, we will need to use it later
 
+### Slash command
+
+It is possible to use this app as a slash command bot. If configured properly, when you type `/your-slash-command` you will see empty modal that allows you to fill in Github issue details.
+
+![docs/empty-modal.png](docs/empty-modal.png)
+
+You can also define issue title as a part of slash command. Type `/your-slash-command This is the issue title`.
+
+![docs/modal-with-title.png](docs/modal-with-title.png)
+
+In order to configure this:
+* on Slack open your app settings 
+* click "Slash commands" on the left hand side menu
+* click "Create new command"
+* in "Command" input define your command (in my case - it's `create-github-issue`)
+* define request url with following value: "https://BASE_URL/slash-command"
+* optionally - define "Short description" and "Usage Hint"
+* press "Save" and test it in your Slack workspace
+
 ## Your app
 
 * install this package as dependency in your app - `npm install --save slack-github-issue-creator`

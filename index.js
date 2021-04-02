@@ -87,6 +87,50 @@ const createServer = (config) => {
         }
     });
 
+    app.post('/slash-command', async (req, res) => {
+        try {
+            const { isValid, reason } = validateRequest(req, config.slackSigningSecret);
+            if (!isValid) {
+                console.log(reason);
+                res.status(403);
+
+                return res.send();
+            }
+
+            const { body } = req;
+
+            const payload = {
+                trigger_id: body.trigger_id,
+                channel: {
+                    name: body.channel_name,
+                    id: body.channel_id,
+                },
+                team: {
+                    domain: body.team_domain,
+                },
+                message: {
+                    user: body.user_id,
+                },
+                title: {
+                    text: body.text,
+                },
+                user: {
+                    username: body.user_name,
+                }
+            };
+
+            await createModalAction(payload, config.slackApiToken, config.channelMap);
+
+            res.status(200);
+            return res.send();
+        } catch (error) {
+            console.error(error);
+
+            res.status(500);
+            return res.send('An error occurred, try again later')
+        }
+    });
+
     return app;
 }
 

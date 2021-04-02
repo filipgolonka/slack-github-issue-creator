@@ -9,6 +9,7 @@ const createModalAction = async (payload, slackApiToken, channelMap = {}) => {
         team: {domain: slackDomain},
         message: {text, ts: messageTimestamp, user: userId},
         user: { username: reporter },
+        title: { text: titleText } = {},
     } = payload;
 
     const predefinedChannel = channelMap[channelId];
@@ -21,7 +22,7 @@ const createModalAction = async (payload, slackApiToken, channelMap = {}) => {
         },
         json: {
             trigger_id,
-            view: createModal({ channelName, text, channelId, slackDomain, messageTimestamp, username, reporter }, predefinedChannel),
+            view: createModal({ channelName, text, titleText, channelId, slackDomain, messageTimestamp, username, reporter }, predefinedChannel),
         },
     });
 };
