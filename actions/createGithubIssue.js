@@ -36,11 +36,13 @@ const createGithubIssue = async (githubClient, payload) => {
         description,
     });
 
-    await got.post(response_urls[0].response_url, {
-        json: {
-            text: `The issue has been created! Url: ${githubResponse.createIssue.issue.url}`,
-        },
-    });
+    if (response_urls.length) {
+        await got.post(response_urls[0].response_url, {
+            json: {
+                text: `The issue has been created! Url: ${githubResponse.createIssue.issue.url}`,
+            },
+        });
+    }
 };
 
 module.exports = createGithubIssue;
