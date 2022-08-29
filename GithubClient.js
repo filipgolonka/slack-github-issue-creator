@@ -1,6 +1,6 @@
 const { graphql } = require('@octokit/graphql');
 
-const createIssueQuery = `mutation createIssue($repository: String, $title: String!, $description: String) {
+const createIssueQuery = `mutation createIssue($repository: ID!, $title: String!, $description: String) {
   createIssue(input: {repositoryId: $repository, title: $title, body: $description}) {
     issue {
       title,
