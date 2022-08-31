@@ -4,7 +4,7 @@ module.exports = ({ channelName, text, titleText, slackDomain, channelId, messag
     let message = '';
     if (messageTimestamp) {
         const link = `https://${slackDomain}.slack.com/archives/${channelId}/p${messageTimestamp.replace('.', '')}`;
-        message = `[Link to Slack discussion](${link})\n\n`;
+        message = `Link to Slack discussion: ${link}\n\n`;
     }
 
     message = `${message}${text ? text : ''}`;
