@@ -1,6 +1,6 @@
 {
   "name": "slack-github-issue-creator",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Wouldn't it be cool to automate the process of creating Github issues directly from Slack messages?",
   "main": "index.js",
   "directories": {
@@ -29,6 +29,6 @@
     "@octokit/graphql": "^4.5.7",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "got": "^12.5.3"
+    "got": "^11.8.6"
   }
 }
