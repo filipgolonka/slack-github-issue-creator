@@ -21,8 +21,8 @@ const isValidSignature = (req, signingSecret) => {
             .digest('hex');
 
     return crypto.timingSafeEqual(
-        Buffer.from(mySignature, 'utf8'),
-        Buffer.from(slackSignature, 'utf8')
+        Buffer.from(mySignature, 'hex'),
+        Buffer.from(slackSignature, 'hex')
     );
 }
 
